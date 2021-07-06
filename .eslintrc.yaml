@@ -1,0 +1,75 @@
+root: true
+
+parser: '@typescript-eslint/parser'
+
+plugins:
+    - import
+    - '@typescript-eslint'
+
+settings:
+    import/resolver:
+        node: {} # workaround for https://github.com/benmosher/eslint-plugin-import/issues/1396
+        webpack:
+            config:
+                resolve:
+                    modules:
+                        - node_modules
+                        - ./src
+                    extensions:
+                        - .d.ts
+                        - .ts
+                        - .mjs
+                        - .js
+
+env:
+    node: true
+
+overrides:
+    - files:
+          - src
+      env:
+          browser: true
+
+rules:
+    # Core
+    sort-imports:
+        - error
+        - ignoreDeclarationSort: true
+
+    # Import
+    import/no-useless-path-segments: error
+    import/no-extraneous-dependencies: error
+    import/no-default-export: error
+    import/newline-after-import: error
+    import/no-duplicates: error
+    import/first: error
+    import/export: error
+    import/no-dynamic-require: error
+    import/extensions:
+        - error
+        - always
+        - ts: never
+          mjs: never
+          js: never
+    import/order:
+        - error
+        - newlines-between: always
+          alphabetize:
+              order: asc
+          groups:
+              - builtin
+              - external
+              - internal
+              - parent
+              - sibling
+              - index
+
+    # TypeScript
+    '@typescript-eslint/naming-convention':
+        - error
+        - selector: [interface, typeAlias, typeParameter]
+          format: [PascalCase]
+          suffix: [T]
+          filter:
+              regex: '^(.|ID)$|HTMLElementTagNameMap'
+              match: false

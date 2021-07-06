@@ -1,0 +1,7 @@
+# Browsers that we support
+
+last 2 versions
+not < 1%
+Firefox ESR
+IE 11
+iOS 10
